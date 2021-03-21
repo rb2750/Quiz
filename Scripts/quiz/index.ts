@@ -1,3 +1,4 @@
 import Home from './home';
+import EditQuiz from './editquiz';
 
-new Home();
+export default { Home, EditQuiz };

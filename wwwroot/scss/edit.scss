@@ -1,0 +1,27 @@
+﻿#question-list {
+  margin-top: 100px;
+
+  .list-group {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    #answer-container {
+      margin-left: 25px;
+
+      .list-group-item {
+        background: #ecebeb;
+      }
+    }
+
+    .list-group-item {
+      input {
+        font-size: 20px;
+      }
+
+      div {
+        margin-left: 20px;
+      }
+    }
+  }
+}

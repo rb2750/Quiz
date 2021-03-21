@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "tapable": [ "node_modules/@types/tapable" ]
+    },
+    "module": "esnext",
+    "target": "ESNext",
+    "lib": [ "esnext", "dom" ],
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "strict": true,
+    "noEmit": true,
+    "noImplicitThis": false,
+    "resolveJsonModule": true,
+    "allowJs": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "Scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "wwwroot",
+    "**/*.spec.ts"
+  ]
+}

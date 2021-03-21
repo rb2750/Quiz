@@ -347,4 +347,3 @@ healthchecksdb
 
 # Ignore Project Files
 appsettings.Development.json
-launchSettings.json

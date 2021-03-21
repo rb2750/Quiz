@@ -1,2 +1,7 @@
 @import "home";
 @import "~bootstrap";
+
+/* FontAwesome */
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts' !default;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";

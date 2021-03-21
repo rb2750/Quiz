@@ -1,29 +1,35 @@
-﻿@page
+﻿@page "{handler?}"
 @model IndexModel
 @{
     ViewData["Title"] = "List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Quiz list</h1>
+<h1 class="display-4 text-center">Quiz list</h1>
 
-    <div id="quizList" class="text-left">
-        <div class="text-right w-100 mb-3">
-            <a id="addQuiz" href="#" class="btn btn-success">Add Quiz</a>
-        </div>
-        <div class="list-group">
-            @foreach (var quiz in Model.quizzes)
-            {
-                <div class="list-group-item font text-left p-3 d-flex justify-content-between">
-                    <span>@quiz.Name</span>
-                    <div>
-                        <a asp-page="EditQuiz" asp-route-quizid="@quiz.ID" class="btn btn-primary">Edit</a>
-                        <a asp-page="ViewQuizResponses" asp-route-quizid="@quiz.ID" class="btn btn-primary">View Responses (@quiz.Responses.Count)</a>
-                        <a asp-page="AnswerQuiz" asp-route-quizid="@quiz.ID" class="btn btn-success">Answer</a>
-                        <a id="deleteQuiz" data-quiz-id="@quiz.ID" href="#" class="btn btn-danger">Delete</a>
-                    </div>
+<div id="quizList" class="text-left">
+    <div class="text-right w-100 mb-3">
+        <a id="addQuiz" href="#" class="btn btn-success">Add Quiz</a>
+    </div>
+    <div class="list-group">
+        @foreach (var quiz in Model.quizzes)
+        {
+            <div class="list-group-item font text-left p-3 d-flex justify-content-between">
+                <span>@quiz.Name</span>
+                <div>
+                    <a asp-page="EditQuiz" asp-route-quizid="@quiz.ID" class="btn btn-primary">Edit</a>
+                    <a asp-page="ViewQuizResponses" asp-route-quizid="@quiz.ID" class="btn btn-primary">View Responses (@quiz.Responses.Count)</a>
+                    <a asp-page="AnswerQuiz" asp-route-quizid="@quiz.ID" class="btn btn-success">Answer</a>
+                    <a id="deleteQuiz" data-quiz-id="@quiz.ID" href="#" class="btn btn-danger">Delete</a>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </div>
+
+@Html.AntiForgeryToken()
+
+@section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', () => new Quiz.Home());
+    </script>
+}

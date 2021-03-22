@@ -7,7 +7,7 @@ export default class Home {
 	}
 
 	private addDeleteButtonHandler(): void {
-		$(document).on('click', '#deleteQuiz', function () {
+		$(document).on('click', '#delete-quiz', function () {
 			// Fetch the quiz ID from the element
 			const quizId = $(this).data('quizId');
 
@@ -50,7 +50,7 @@ export default class Home {
 	}
 
 	private addCreateButtonHandler(): void {
-		$(document).on('click', '#addQuiz', () => {
+		$(document).on('click', '#add-quiz', () => {
 			Home.showQuizNameDialog().then((quizName: string) => {
 				// If they didn't press cancel.
 				if (quizName !== undefined) {

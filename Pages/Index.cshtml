@@ -6,9 +6,9 @@
 
 <h1 class="display-4 text-center">Quiz list</h1>
 
-<div id="quizList">
+<div id="quiz-list">
     <div class="text-right w-100 mb-3">
-        <a id="addQuiz" href="#" class="btn btn-success">Add Quiz</a>
+        <a id="add-quiz" href="#" class="btn btn-success">Add Quiz</a>
     </div>
     <div class="list-group">
         @if (Model.quizzes.Count > 0)
@@ -20,8 +20,8 @@
                     <div>
                         <a asp-page="EditQuiz" asp-route-quizId="@quiz.ID" class="btn btn-primary">Edit</a>
                         <a asp-page="ViewQuizResponses" asp-route-quizId="@quiz.ID" class="btn btn-primary">View Responses (@quiz.Responses.Count)</a>
-                        <a asp-page="AnswerQuiz" asp-route-quizId="@quiz.ID" class="btn btn-success">Answer</a>
-                        <a id="deleteQuiz" data-quiz-id="@quiz.ID" href="#" class="btn btn-danger">Delete</a>
+                        <a asp-page="Quiz" asp-route-quizId="@quiz.ID" class="btn btn-success">Answer</a>
+                        <a id="delete-quiz" data-quiz-id="@quiz.ID" href="#" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             }

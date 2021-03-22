@@ -10,7 +10,7 @@ export default class EditQuiz {
 	private setupSaveButton(): void {
 		const quizId = new URL(window.location.href).searchParams.get('quizId');
 
-		$(document).on('click', '#saveQuiz', () => {
+		$(document).on('click', '#save-quiz', () => {
 			$.ajax('/EditQuiz/SaveQuiz', {
 				data: {
 					__RequestVerificationToken: $(
@@ -76,28 +76,28 @@ export default class EditQuiz {
 	private setupQuestionButtons(): void {
 		this.updateQuestionArrows();
 
-		$(document).on('click', '#moveQuestionUp', (data) => {
+		$(document).on('click', '#move-question-up', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.prev().insertAfter(listGroup);
 
 			this.updateQuestionArrows();
 		});
-		$(document).on('click', '#moveQuestionDown', (data) => {
+		$(document).on('click', '#move-question-down', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.next().insertBefore(listGroup);
 
 			this.updateQuestionArrows();
 		});
-		$(document).on('click', '#addQuestion', (data) => {
+		$(document).on('click', '#add-question', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.clone().insertAfter(listGroup);
 
 			this.updateQuestionArrows();
 		});
-		$(document).on('click', '#removeQuestion', (data) => {
+		$(document).on('click', '#remove-question', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			$(listGroup).remove();
@@ -109,28 +109,28 @@ export default class EditQuiz {
 	private setupAnswerButtons(): void {
 		this.updateAnswerArrows();
 
-		$(document).on('click', '#moveAnswerUp', (data) => {
+		$(document).on('click', '#move-answer-up', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.prev().insertAfter(listGroup);
 
 			this.updateAnswerArrows();
 		});
-		$(document).on('click', '#moveAnswerDown', (data) => {
+		$(document).on('click', '#move-answer-down', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.next().insertBefore(listGroup);
 
 			this.updateAnswerArrows();
 		});
-		$(document).on('click', '#addAnswer', (data) => {
+		$(document).on('click', '#add-answer', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.clone().insertAfter(listGroup);
 
 			this.updateAnswerArrows();
 		});
-		$(document).on('click', '#removeAnswer', (data) => {
+		$(document).on('click', '#remove-answer', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			$(listGroup).remove();

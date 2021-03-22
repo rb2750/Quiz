@@ -10,6 +10,7 @@ namespace Quiz.Models
         [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
         public int ID { get; set; }
         
+        public int Order { get; set; }
         public string Question { get; set; }
 
         [ForeignKey("Quiz")] public int QuizID { get; set; }

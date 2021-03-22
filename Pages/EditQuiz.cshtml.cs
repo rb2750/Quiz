@@ -24,7 +24,7 @@ namespace Quiz.Pages
 
         public void OnGet(int quizId)
         {
-            quiz = _context.Quizzes.FirstOrDefault(q => q.ID == quizId);
+            quiz = _context.Quizzes.Include(q => q.Questions).ThenInclude(q => q.Answers).FirstOrDefault(q => q.ID == quizId);
         }
 
         public ActionResult OnPostSaveQuiz(int quizId, List<QuizQuestion> questions)

@@ -41,21 +41,33 @@ export default class EditQuiz {
 		});
 	}
 
-	private getQuestionsFromPage(): Array<{ Question: string; Answers: Array<{ Answer: string }> }> {
-		const result: Array<{ Question: string; Answers: Array<{ Answer: string }> }> = [];
+	private getQuestionsFromPage(): Array<{
+		Question: string;
+		Order: number;
+		Answers: Array<{ Answer: string; Order: number }>;
+	}> {
+		const result: Array<{
+			Question: string;
+			Order: number;
+			Answers: Array<{ Answer: string; Order: number }>;
+		}> = [];
 
-		for (const question of $('#question-list .list-group>.list-group-item')) {
+		let questionNumber = 0;
+
+		for (const question of $('#question-container .list-group>.list-group-item')) {
 			const questionText = $(question).find('input').val() as string;
 
-			const Answers: Array<{ Answer: string }> = [];
+			const Answers: Array<{ Answer: string; Order: number }> = [];
+
+			let answerNumber = 0;
 
 			for (const answer of $(question).parent().find('#answer-container .list-group-item')) {
 				const answerText = $(answer).find('input').val() as string;
 
-				Answers.push({ Answer: answerText });
+				Answers.push({ Answer: answerText, Order: (answerNumber += 1) });
 			}
 
-			result.push({ Question: questionText, Answers });
+			result.push({ Question: questionText, Order: (questionNumber += 1), Answers });
 		}
 
 		return result;

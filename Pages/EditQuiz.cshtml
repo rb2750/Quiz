@@ -44,11 +44,31 @@ else
             <a id="saveQuiz" href="#" class="btn btn-success">Save</a>
             <a href="/" class="btn btn-danger">Cancel</a>
         </div>
-        <div class="list-group">
-            @RenderCard(Tuple.Create("Question", "Question"))
-            <div id="answer-container">
-                @RenderCard(Tuple.Create("Answer", "Answer"))
-            </div>
+        <div id="question-container">
+            @if (Model.quiz.Questions.Count > 0)
+            {
+                @foreach (var question in Model.quiz.Questions.OrderBy(q => q.Order))
+                {
+                    <div class="list-group">
+                        @RenderCard(Tuple.Create("Question", question.Question))
+                        <div id="answer-container">
+                            @foreach (var answer in question.Answers.OrderBy(a => a.Order))
+                            {
+                                @RenderCard(Tuple.Create("Answer", answer.Answer))
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="list-group">
+                    @RenderCard(Tuple.Create("Question", "Question"))
+                    <div id="answer-container">
+                        @RenderCard(Tuple.Create("Answer", "Answer"))
+                    </div>
+                </div>
+            }
         </div>
     </div>
 }

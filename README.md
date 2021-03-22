@@ -5,3 +5,4 @@
 - Run `npm install`.
 - Run `npm run prod`.
 - Start project in Visual Studio (or Rider) using the `Quiz Production` profile.
+- Open browser to `https://localhost/`

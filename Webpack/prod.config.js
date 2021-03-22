@@ -16,6 +16,8 @@ module.exports = merge(baseConfig, {
 		publicPath: '/dist/prod/',
 		filename: '[name].bundle.[contenthash].js',
 		chunkFilename: '[name].[contenthash].js',
+		libraryExport: 'default',
+		libraryTarget: 'umd',
 		library: 'Quiz'
 	},
 	optimization: {

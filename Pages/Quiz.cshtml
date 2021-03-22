@@ -1,5 +1,4 @@
 ﻿@page "{handler?}"
-@using Microsoft.AspNetCore.Html
 @model QuizModel
 @{
     ViewData["Title"] = Model.quiz?.Name ?? "Quiz"; //Default to quiz if there wasn't a quiz found for this ID
@@ -13,10 +12,17 @@ else
 {
     <h1 class="display-4 text-center">Quiz "@Model.quiz.Name"</h1>
 
-    <div id="quiz-question-list" class="text-left">
+    <div id="quiz-question-list" class="text-left @(Model.response != null ? "viewing" : "")">
         <div class="text-right w-100 mb-3">
-            <a id="save-quiz" href="#" class="btn btn-success">Submit</a>
-            <a href="/" class="btn btn-danger">Cancel</a>
+            @if (Model.response == null)
+            {
+                <a id="save-quiz" href="#" class="btn btn-success">Submit</a>
+                <a href="/" class="btn btn-danger">Cancel</a>
+            }
+            else
+            {
+                <a asp-page="ViewResponses" asp-route-quizId="@Model.quiz.ID" class="btn btn-danger">Close</a>                
+            }
         </div>
         @if (Model.quiz.Questions.Count > 0)
         {
@@ -29,7 +35,7 @@ else
                     <div id="answer-container">
                         @foreach (var answer in question.Answers.OrderBy(a => a.Order))
                         {
-                            <a href="#" class='list-group-item text-left p-3 d-flex justify-content-between'>
+                            <a href="#" data-question-id="@question.ID" data-answer-id="@answer.ID" class='list-group-item @(Model.response != null && Model.response.Answers.Any(a => a.Question == question.ID && a.Answer == answer.ID) ? "active" : "") text-left p-3 d-flex justify-content-between'>
                                 @answer.Answer
                             </a>
                         }

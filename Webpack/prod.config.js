@@ -33,8 +33,6 @@ module.exports = merge(baseConfig, {
 				}
 			})
 		],
-		runtimeChunk: 'single',
-		moduleIds: 'deterministic',
 		splitChunks: {
 			cacheGroups: {
 				defaultVendors: {

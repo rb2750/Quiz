@@ -33,8 +33,6 @@ module.exports = merge(baseConfig, {
 		}),
 	],
 	optimization: {
-		// runtimeChunk: 'single',
-		// moduleIds: 'deterministic',
 		usedExports: true,
 		splitChunks: {
 			cacheGroups: {

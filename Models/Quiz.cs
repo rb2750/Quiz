@@ -13,5 +13,6 @@ namespace Quiz.Models
         public string Name { get; set; }
         
         public ICollection<QuizResponse> Responses { get; set; }
+        public ICollection<QuizQuestion> Questions { get; set; }
     }
 }

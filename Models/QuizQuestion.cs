@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quiz.Models
@@ -11,8 +12,9 @@ namespace Quiz.Models
         
         public string Question { get; set; }
 
-        public Quiz Quiz { get; set; }
-
         [ForeignKey("Quiz")] public int QuizID { get; set; }
+
+        public Quiz Quiz { get; set; }        
+        public ICollection<QuizAnswer> Answers { get; set; }
     }
 }

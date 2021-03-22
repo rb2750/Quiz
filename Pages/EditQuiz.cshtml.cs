@@ -27,52 +27,19 @@ namespace Quiz.Pages
             quiz = _context.Quizzes.FirstOrDefault(q => q.ID == quizId);
         }
 
-        public ActionResult OnPostDeleteQuiz(int? quizId)
+        public ActionResult OnPostSaveQuiz(int quizId, List<QuizQuestion> questions)
         {
-            var quizInstance = _context.Quizzes.FirstOrDefault(q => q.ID == quizId);
+            //Remove all previous existing questions
+            _context.QuizQuestion.RemoveRange(_context.QuizQuestion.Where(question => question.QuizID == quizId).ToList());
 
-            if (quizInstance == null)
-            {
-                return new JsonResult(new {success = false, message = "Could not find a quiz by that ID."});
-            }
+            //Insert the quiz id into each question.
+            questions.ForEach(question => question.QuizID = quizId);
 
-            _context.Quizzes.Remove(quizInstance);
+            //Insert all of the questions and answers
+            _context.QuizQuestion.AddRange(questions);
 
-            //If the database has been changed more than 0 times when saving
-            if (_context.SaveChanges() > 0)
-            {
-                return new JsonResult(new {success = true});
-            }
-
-            return new JsonResult(new {success = false, message = "There was a problem when updating the database."});
-        }
-
-        public ActionResult OnPostCreateQuiz(string name)
-        {
-            if (name.Length == 0)
-            {
-                return new JsonResult(new {success = false, message = "Quiz name cannot be empty."});
-            }
-
-            var quizInstance = _context.Quizzes.FirstOrDefault(q => q.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-
-            if (quizInstance != null)
-            {
-                return new JsonResult(new {success = false, message = "A quiz already exists with that name."});
-            }
-
-            _context.Quizzes.Add(new Models.Quiz
-            {
-                Name = name
-            });
-
-            //If the database has been changed more than 0 times when saving
-            if (_context.SaveChanges() > 0)
-            {
-                return new JsonResult(new {success = true});
-            }
-
-            return new JsonResult(new {success = false, message = "There was a problem when updating the database."});
+            //Success if changes are made to the database
+            return new JsonResult(new {success = _context.SaveChanges() > 0});
         }
     }
 }

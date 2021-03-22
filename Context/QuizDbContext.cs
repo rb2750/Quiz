@@ -12,6 +12,7 @@ namespace Quiz.Context
         public DbSet<Models.QuizResponse> QuizResponses { get; set; }
         public DbSet<Models.QuizQuestion> QuizQuestion { get; set; }
         public DbSet<Models.QuizAnswer> QuizAnswer { get; set; }
+        public DbSet<Models.QuizResponseItem> QuizResponseItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

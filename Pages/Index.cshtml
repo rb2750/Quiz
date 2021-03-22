@@ -19,7 +19,7 @@
                     <span>@quiz.Name</span>
                     <div>
                         <a asp-page="EditQuiz" asp-route-quizId="@quiz.ID" class="btn btn-primary">Edit</a>
-                        <a id="view-responses" @*asp-page="ViewQuizResponses" asp-route-quizId="@quiz.ID"*@ class="btn btn-primary">View Responses (@quiz.Responses.Count)</a>
+                        <a asp-page="ViewResponses" asp-route-quizId="@quiz.ID" class="btn btn-primary">View Responses (@quiz.Responses.Count)</a>
                         <a asp-page="Quiz" asp-route-quizId="@quiz.ID" class="btn btn-success">Answer</a>
                         <a id="delete-quiz" data-quiz-id="@quiz.ID" href="#" class="btn btn-danger">Delete</a>
                     </div>

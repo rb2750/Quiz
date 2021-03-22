@@ -1,0 +1,48 @@
+﻿@page "{handler?}"
+@model ViewResponses
+@{
+    ViewData["Title"] = "Responses";
+}
+
+@if (Model.quiz == null)
+{
+    <h1 class="display-4 text-center">Quiz not found</h1>
+}
+else
+{
+    <h1 class="display-4 text-center">Responses for quiz @Model.quiz.Name</h1>
+
+    <div id="quiz-list">
+        <div class="text-right w-100 mb-3">
+            <a href="/" class="btn btn-danger">Close</a>
+        </div>
+        <div class="list-group">
+            @if (Model.quiz.Responses.Count > 0)
+            {
+                @foreach (var response in Model.quiz.Responses)
+                {
+                    <div class="list-group-item p-3 d-flex justify-content-between">
+                        <span>Response @response.ID</span>
+                        <div>
+                            <a asp-page="Quiz" asp-route-quizId="@Model.quiz.ID" asp-route-quizResponseId="@response.ID" class="btn btn-primary">View Response</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="list-group-item p-3 d-flex justify-content-between">
+                    <span class="mx-auto">There are no responses yet!</span>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@Html.AntiForgeryToken()
+
+@section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', () => new Quiz.Home());
+    </script>
+}

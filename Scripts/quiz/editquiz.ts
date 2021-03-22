@@ -1,7 +1,64 @@
+import Swal from 'sweetalert2';
+
 export default class EditQuiz {
 	constructor() {
 		this.setupQuestionButtons();
 		this.setupAnswerButtons();
+		this.setupSaveButton();
+	}
+
+	private setupSaveButton(): void {
+		const quizId = new URL(window.location.href).searchParams.get('quizId');
+
+		$(document).on('click', '#saveQuiz', () => {
+			$.ajax('/EditQuiz/SaveQuiz', {
+				data: {
+					__RequestVerificationToken: $(
+						'input[name="__RequestVerificationToken"]'
+					).val() /* Verify the request using an ASP token */,
+					quizId,
+					questions: this.getQuestionsFromPage()
+				},
+				method: 'post',
+				success(response) {
+					if (response.success) {
+						Swal.fire({
+							title: 'Success',
+							text: 'Quiz saved successfully',
+							icon: 'success',
+							onClose: () => {
+								document.location.href = '/';
+							}
+						});
+					} else {
+						Swal.fire({ title: 'Error', text: response.message, icon: 'error' });
+					}
+				},
+				error() {
+					Swal.fire({ title: 'Error', text: 'There was an error in sending the request.', icon: 'error' });
+				}
+			});
+		});
+	}
+
+	private getQuestionsFromPage(): Array<{ Question: string; Answers: Array<{ Answer: string }> }> {
+		const result: Array<{ Question: string; Answers: Array<{ Answer: string }> }> = [];
+
+		for (const question of $('#question-list .list-group>.list-group-item')) {
+			const questionText = $(question).find('input').val() as string;
+
+			const Answers: Array<{ Answer: string }> = [];
+
+			for (const answer of $(question).parent().find('#answer-container .list-group-item')) {
+				const answerText = $(answer).find('input').val() as string;
+
+				Answers.push({ Answer: answerText });
+			}
+
+			result.push({ Question: questionText, Answers });
+		}
+
+		return result;
 	}
 
 	private setupQuestionButtons(): void {

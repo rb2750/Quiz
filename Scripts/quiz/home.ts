@@ -4,6 +4,13 @@ export default class Home {
 	constructor() {
 		this.addDeleteButtonHandler();
 		this.addCreateButtonHandler();
+		this.addResponseClickHandler();
+	}
+
+	private addResponseClickHandler(): void {
+		$(document).on('click', '#view-responses', () => {
+			Swal.fire({ title: 'Error', text: 'This feature has not yet been implemented.', icon: 'error' });
+		});
 	}
 
 	private addDeleteButtonHandler(): void {

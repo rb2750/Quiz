@@ -50,11 +50,11 @@ else
                 @foreach (var question in Model.quiz.Questions.OrderBy(q => q.Order))
                 {
                     <div class="list-group">
-                        @RenderCard(Tuple.Create("Question", question.Question))
+                        @RenderCard(Tuple.Create("question", question.Question))
                         <div id="answer-container">
                             @foreach (var answer in question.Answers.OrderBy(a => a.Order))
                             {
-                                @RenderCard(Tuple.Create("Answer", answer.Answer))
+                                @RenderCard(Tuple.Create("answer", answer.Answer))
                             }
                         </div>
                     </div>
@@ -63,9 +63,9 @@ else
             else
             {
                 <div class="list-group">
-                    @RenderCard(Tuple.Create("Question", "Question"))
+                    @RenderCard(Tuple.Create("question", "Question"))
                     <div id="answer-container">
-                        @RenderCard(Tuple.Create("Answer", "Answer"))
+                        @RenderCard(Tuple.Create("answer", "Answer"))
                     </div>
                 </div>
             }

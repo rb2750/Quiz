@@ -74,86 +74,104 @@ export default class EditQuiz {
 	}
 
 	private setupQuestionButtons(): void {
-		this.updateQuestionArrows();
+		EditQuiz.updateQuestionButtonStates();
 
 		$(document).on('click', '#move-question-up', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.prev().insertAfter(listGroup);
 
-			this.updateQuestionArrows();
+			EditQuiz.updateQuestionButtonStates();
 		});
 		$(document).on('click', '#move-question-down', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.next().insertBefore(listGroup);
 
-			this.updateQuestionArrows();
+			EditQuiz.updateQuestionButtonStates();
 		});
 		$(document).on('click', '#add-question', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			listGroup.clone().insertAfter(listGroup);
 
-			this.updateQuestionArrows();
+			EditQuiz.updateQuestionButtonStates();
 		});
 		$(document).on('click', '#remove-question', (data) => {
 			const listGroup = $(data.target).parents('.list-group');
 
 			$(listGroup).remove();
 
-			this.updateQuestionArrows();
+			EditQuiz.updateQuestionButtonStates();
 		});
 	}
 
 	private setupAnswerButtons(): void {
-		this.updateAnswerArrows();
+		EditQuiz.updateAnswerButtonStates();
 
 		$(document).on('click', '#move-answer-up', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.prev().insertAfter(listGroup);
 
-			this.updateAnswerArrows();
+			EditQuiz.updateAnswerButtonStates();
 		});
 		$(document).on('click', '#move-answer-down', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.next().insertBefore(listGroup);
 
-			this.updateAnswerArrows();
+			EditQuiz.updateAnswerButtonStates();
 		});
 		$(document).on('click', '#add-answer', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			listGroup.clone().insertAfter(listGroup);
 
-			this.updateAnswerArrows();
+			EditQuiz.updateAnswerButtonStates();
 		});
 		$(document).on('click', '#remove-answer', (data) => {
 			const listGroup = $(data.target).parents('.list-group-item');
 
 			$(listGroup).remove();
 
-			this.updateAnswerArrows();
+			EditQuiz.updateAnswerButtonStates();
 		});
 	}
 
-	private updateQuestionArrows(): void {
-		for (const element of $('.list-group')) {
-			if ($(element).prev().length) $(element).find('#moveQuestionUp').show();
-			else $(element).find('#moveQuestionUp').hide();
-			if ($(element).next().length) $(element).find('#moveQuestionDown').show();
-			else $(element).find('#moveQuestionDown').hide();
+	private static updateQuestionButtonStates(): void {
+		const listGroupSelector = $('.list-group');
+
+		for (const element of listGroupSelector) {
+			// If it can't be moved any more, hide the up arrow.
+			if ($(element).prev().length) $(element).find('#move-question-up').show();
+			else $(element).find('#move-question-up').hide();
+
+			// If it can't be moved any more, hide the down arrow.
+			if ($(element).next().length) $(element).find('#move-question-down').show();
+			else $(element).find('#move-question-down').hide();
+
+			// If it's the only element, don't let them remove it. Otherwise they can't add more!
+			if (listGroupSelector.length > 1) $(element).find('#remove-question').show();
+			else $(element).find('#remove-question').hide();
 		}
 	}
 
-	private updateAnswerArrows(): void {
-		for (const element of $('.list-group-item')) {
-			if ($(element).prev().length) $(element).find('#moveAnswerUp').show();
-			else $(element).find('#moveAnswerUp').hide();
-			if ($(element).next().length) $(element).find('#moveAnswerDown').show();
-			else $(element).find('#moveAnswerDown').hide();
+	private static updateAnswerButtonStates(): void {
+		const listGroupItemSelector = $('.list-group-item');
+
+		for (const element of listGroupItemSelector) {
+			// If it can't be moved any more, hide the up arrow.
+			if ($(element).prev().length) $(element).find('#move-answer-up').show();
+			else $(element).find('#move-answer-up').hide();
+
+			// If it can't be moved any more, hide the down arrow.
+			if ($(element).next().length) $(element).find('#move-answer-down').show();
+			else $(element).find('#move-answer-down').hide();
+
+			// If it's the only element, don't let them remove it. Otherwise they can't add more! (Makes sure to only check items within this question)
+			if ($(element).parent().children('.list-group-item').length > 1) $(element).find('#remove-answer').show();
+			else $(element).find('#remove-answer').hide();
 		}
 	}
 }

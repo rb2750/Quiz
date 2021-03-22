@@ -1,0 +1,57 @@
+﻿@page "{handler?}"
+@using Microsoft.AspNetCore.Html
+@model QuizModel
+@{
+    ViewData["Title"] = Model.quiz?.Name ?? "Quiz"; //Default to quiz if there wasn't a quiz found for this ID
+}
+
+@if (Model.quiz == null)
+{
+    <h1 class="display-4 text-center">Quiz not found</h1>
+}
+else
+{
+    <h1 class="display-4 text-center">Quiz "@Model.quiz.Name"</h1>
+
+    <div id="quiz-question-list" class="text-left">
+        <div class="text-right w-100 mb-3">
+            <a id="save-quiz" href="#" class="btn btn-success">Submit</a>
+            <a href="/" class="btn btn-danger">Cancel</a>
+        </div>
+        @if (Model.quiz.Questions.Count > 0)
+        {
+            @foreach (var question in Model.quiz.Questions.OrderBy(q => q.Order))
+            {
+                <div class="list-group">
+                    <div class='list-group-item text-left p-3 d-flex justify-content-between'>
+                        <span>@question.Question</span>
+                    </div>
+                    <div id="answer-container">
+                        @foreach (var answer in question.Answers.OrderBy(a => a.Order))
+                        {
+                            <a href="#" class='list-group-item text-left p-3 d-flex justify-content-between'>
+                                @answer.Answer
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="list-group">
+                <div class="list-group-item p-3 d-flex justify-content-between">
+                    <span class="mx-auto">This quiz has no questions yet.</span>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@Html.AntiForgeryToken()
+
+@section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', () => new Quiz.Quiz());
+    </script>
+}

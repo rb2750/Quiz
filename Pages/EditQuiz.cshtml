@@ -7,24 +7,24 @@
 
 @{
     /**
-     * Render a card with buttons for the specified type.
+     * Render a card with buttons for the specified type and existing value.
      *
      * Types: Question, Answer (case sensitive)
      */
-    Func<string, IHtmlContent> RenderCard =
+    Func<Tuple<string, string>, IHtmlContent> RenderCard =
         @<div class='list-group-item text-left p-3 d-flex justify-content-between'>
-            <input class='form-control' value='@(item)'/>
+            <input class='form-control' value='@(item.Item2)'/>
             <div class='my-auto d-flex flex-row'>
-                <a id='move@(item)Up' href='#' class='text-primary mr-2'>
+                <a id='move@(item.Item1)Up' href='#' class='text-primary mr-2'>
                     <i class='fas fa-chevron-up fa-fw'></i>
                 </a>
-                <a id='move@(item)Down' href='#' class='text-primary mr-2'>
+                <a id='move@(item.Item1)Down' href='#' class='text-primary mr-2'>
                     <i class='fas fa-chevron-down fa-fw'></i>
                 </a>
-                <a id='add@(item)' href='#' class='text-success mr-2'>
+                <a id='add@(item.Item1)' href='#' class='text-success mr-2'>
                     <i class='fas fa-plus fa-fw'></i>
                 </a>
-                <a id='remove@(item)' href='#' class='text-danger'>
+                <a id='remove@(item.Item1)' href='#' class='text-danger'>
                     <i class='fas fa-trash-alt fa-fw'></i>
                 </a>
             </div>
@@ -45,9 +45,9 @@ else
             <a href="/" class="btn btn-danger">Cancel</a>
         </div>
         <div class="list-group">
-            @RenderCard("Question")
+            @RenderCard(Tuple.Create("Question", "Question"))
             <div id="answer-container">
-                @RenderCard("Answer")
+                @RenderCard(Tuple.Create("Answer", "Answer"))
             </div>
         </div>
     </div>
